@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Association Rules</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Association Rules</h1>
+    <form action="/generate_rules" method="post" enctype="multipart/form-data">
+        <input type="file" name="data_file" accept=".csv">
+        <button type="submit">Generate Rules</button>
+    </form>
+</body>
+</html>
