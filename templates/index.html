@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Association Rules</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/plot.css') }}">
+</head>
+<body>
+    <h1>Upload a CSV File and Generate Rules</h1>
+    <form action="/generate_rules" method="POST" enctype="multipart/form-data">
+        <input type="file" name="data_file" accept=".csv">
+        <input type="submit" name="submit_action" value="Generate Rules">
+    </form>
+
+    <form action="/" method="POST" enctype="multipart/form-data">
+        <!-- <input type="file" name="data_file" accept=".csv"> -->
+        <input type="submit" name="submit_action" value="Show File">
+    </form>
+
+    {% if data_file %}
+        <h2>Uploaded File: {{ data_file }}</h2>
+        {% if table_html %}
+            <h2>Table:</h2>
+            {{ table_html|safe }}
+        {% endif %}
+    {% endif %}
+</body>
+</html>
