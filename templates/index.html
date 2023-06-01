@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Association Rules</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/plot.css') }}">
-</head>
-<body>
-    <h1>Upload a CSV File and Generate Rules</h1>
-    <form action="/generate_rules" method="POST" enctype="multipart/form-data">
-        <input type="file" name="data_file" accept=".csv">
-        <input type="submit" name="submit_action" value="Generate Rules">
-    </form>
+    <head>
+        <title>Association Rules</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <form action="/" method="POST" enctype="multipart/form-data">
-        <!-- <input type="file" name="data_file" accept=".csv"> -->
-        <input type="submit" name="submit_action" value="Show File">
-    </form>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/plot1.css') }}">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                height: 100%;
+                width: 100%;
+                background-image:  url("{{ url_for('static', filename='images/background1.jpeg') }}");
+                background-repeat: no-repeat;
+                background-size: inherit;
+            }
+        </style>
 
-    {% if data_file %}
-        <h2>Uploaded File: {{ data_file }}</h2>
-        {% if table_html %}
-            <h2>Table:</h2>
-            {{ table_html|safe }}
-        {% endif %}
-    {% endif %}
-</body>
+    </head>
+    <body>
+        <h1>Welcome To FOOD JUNCTION</h1>
+
+        <form action="/generate_rules" method="post" enctype="multipart/form-data">
+            <div >
+                <input class="button" type="file" name="data_file" accept=".csv">
+            </div>
+            <div class="center">
+                <button class="button" type="submit">Generate Rules</button>
+            </div>
+        </form>
+
+    </body>
 </html>
