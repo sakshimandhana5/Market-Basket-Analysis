@@ -1,36 +1,43 @@
 .button {
     background-color: #B10306;
+    border-radius: 100px;
     border: none;
     color: white;
-    padding: 15px 32px;
+    padding: 15px 15px 15px 15px; 
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 20px;
-    padding-top: 30px
+}
+
+.button:hover {
+    background-color: #555;
+    color: white;
 }
 
 .center {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 43%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
+    margin-top: 20px; /* Adjust the margin-top value as per your preference */
+    text-align: center;
 }
 
 form {
     margin-top: 50px;
     text-align: center;
-     align-items: center;
+    align-items: center;
+}
+
+body {
+    margin: 0;
 }
 
 h1 {
     color:white;
+    left: 0;
+    top: 0;
     text-align: center;
     font-family: cursive;
     overflow: hidden;
-    background-image: linear-gradient(to right,  #B10306, #CE3D40) ;
+    background-image: linear-gradient(to right,  #B10306, #B10306) ;
     width:100%;
-    height:100px;
+    height:70%;
 }

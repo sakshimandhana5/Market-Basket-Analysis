@@ -3,9 +3,9 @@ import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
 from mlxtend.frequent_patterns import apriori, association_rules
-from plotly.offline import init_notebook_mode, iplot
+#from plotly.offline import init_notebook_mode, iplot
 
-init_notebook_mode(connected=True)
+#init_notebook_mode(connected=True)
 
 app = Flask(__name__)
 
@@ -152,7 +152,7 @@ def generate_rules():
 
     fig3.update_layout(annotations=annotations)
 
-    iplot(fig3)
+    #iplot(fig3)
 
     # # Extract and modify the association rules table
     # association_df = modified_rules[['antecedents', 'consequents', 'lift']]
@@ -181,8 +181,7 @@ def generate_rules():
     association_df['Item B'] = association_df['Item B'].str.replace(',', '')
 
     # Calculate the strength category based on the lift value
-    association_df['Strength Category'] = association_df['lift'].apply(lambda
-                                                                           x: 'Strongly associated' if x > 20 else 'Moderately associated' if 10 <= x <= 20 else 'Mildly associated')
+    association_df['Strength Category'] = association_df['lift'].apply(lambda x: 'Strongly associated' if x > 20 else 'Moderately associated' if 10 <= x <= 20 else 'Mildly associated')
 
     # Filter the association rules table for strongly associated items
     strongly_associated_df = association_df[association_df['Strength Category'] == 'Strongly associated']
@@ -190,9 +189,31 @@ def generate_rules():
     # Remove the 'Strength Category' column
     strongly_associated_df = strongly_associated_df[['Item A', 'Item B']]
 
-    # Display the strongly associated items table with a title
-    strongly_associated_df.to_string(index=False)
-    strongly_associated_products = strongly_associated_df.values.tolist()
+    # Specify the columns to be displayed
+    columns_to_display = ['Item A', 'Item B']
+
+    # Create the table trace
+    table_trace = go.Table(
+        header=dict(
+            values=list(strongly_associated_df.columns),
+            fill_color='#B10306',  # Set the header fill color to #B10306
+            align='left',
+            font=dict(color='white')  # Set the header font color to white
+        ),
+        cells=dict(
+            values=[strongly_associated_df[col] for col in columns_to_display],
+            fill=dict(color=['white', 'aliceblue'] * len(strongly_associated_df)),  # Set the row fill color to alternate between white and aliceblue
+            align='left'
+        )
+    )
+
+    # Create the figure and add the table trace
+    fig5 = go.Figure(data=[table_trace])
+
+    # Update the layout with a title and background color
+    fig5.update_layout(
+        paper_bgcolor='bisque'  # Set the background color behind the table to bisque
+    )
 
     # Calculate the most productive days
     mpd = data.groupby('Invoice Date')['Product Name'].count().sort_values(ascending=False).head(25)
@@ -207,29 +228,104 @@ def generate_rules():
     most_sold_products = most_sold_products.sort_values(by='Count', ascending=False)
 
     # Display only the top 10 most sold products
-    top_10_most_sold_products = most_sold_products.head(18)
+    top_10_most_sold_products = most_sold_products
+    # Specify the columns to be displayed
+    columns_to_display = ['Invoice Date', 'Product Name', 'Count']
 
-    # Display the resulting table of top 10 most sold products on the most productive days
+    # Create the table trace
+    table_trace = go.Table(
+        header=dict(
+            values=columns_to_display,
+            fill_color='#B10306',  # Set the header fill color to #B10306
+            align='left',
+            font=dict(color='white')  # Set the header font color to white
+        ),
+        cells=dict(
+            values=[top_10_most_sold_products[col] for col in columns_to_display],
+            fill=dict(color=['white', 'aliceblue'] * len(top_10_most_sold_products)),  # Set the row fill color to alternate between white and aliceblue
+            align='left'
+        )
+    )
+
+    # Create the figure and add the table trace
+    fig6 = go.Figure(data=[table_trace])
+
+    # Update the layout with a title and background color
+    fig6.update_layout(
+        paper_bgcolor='bisque'  # Set the background color behind the table to bisque
+    )
 
     # Assuming you have the itemFrequency data as a pandas Series
     itemFrequency = data['Product Name'].value_counts().sort_values(ascending=False)
 
-    # Get the top 10 most frequent items
-    top_items = itemFrequency.head(18)
+            # Get the top 10 most frequent items
+    top_items = itemFrequency
 
-    # Create a DataFrame from the top_items data
+            # Create a DataFrame from the top_items data
     table_data = pd.DataFrame({'Product Name': top_items.index, 'Total Sale(Qty)': top_items.values})
+
+    # Specify the columns to be displayed
+    columns_to_display = ['Product Name', 'Total Sale(Qty)']
+
+    # Create the table trace
+    table_trace = go.Table(
+        header=dict(
+            values=columns_to_display,
+            fill_color='#B10306',  # Set the header fill color to #B10306
+            align='left',
+            font=dict(color='white')  # Set the header font color to white
+        ),
+        cells=dict(
+            values=[table_data[col] for col in columns_to_display],
+            fill=dict(color=['white', 'aliceblue'] * len(table_data)),  # Set the row fill color to alternate between white and aliceblue
+            align='left'
+        )
+    )
+
+    # Create the figure and add the table trace
+    fig7 = go.Figure(data=[table_trace])
+
+    # Update the layout with a title and background color
+    fig7.update_layout(
+        paper_bgcolor='bisque'  # Set the background color behind the table to bisque
+    )
+
 
     # Display the table without the index column
     # table_data.to_string(index=False)
 
     # Assuming you have the data DataFrame with columns 'Product Name' and 'RATE'
     product_rates = data.groupby('Product Name').sum().reset_index()
-    product_rates = product_rates.sort_values('RATE', ascending=False).head(
-        18)  # Sort by RATE and select top 18 products
+    product_rates = product_rates.sort_values('RATE', ascending=False)  # Sort by RATE and select top 18 products
 
-    # Create the table with selected columns
+        # Create the table with selected columns
     table_data_1 = product_rates[['Product Name', 'RATE']].rename(columns={'RATE': 'Revenue'})
+
+    # Specify the columns to be displayed
+    columns_to_display = ['Product Name', 'Revenue']
+
+    # Create the table trace
+    table_trace = go.Table(
+        header=dict(
+            values=columns_to_display,
+            fill_color='#B10306',  # Set the header fill color to #B10306
+            align='left',
+            font=dict(color='white')  # Set the header font color to white
+        ),
+        cells=dict(
+            values=[table_data_1[col] for col in columns_to_display],
+            fill=dict(color=['white', 'aliceblue'] * len(table_data_1)),  # Set the row fill color to alternate between white and aliceblue
+            align='left'
+        )
+    )
+
+    # Create the figure and add the table trace
+    fig8 = go.Figure(data=[table_trace])
+
+    # Update the layout with a title and background color
+    fig8.update_layout(
+        paper_bgcolor='bisque'  # Set the background color behind the table to bisque
+    )
 
     # Display the table without the index column
     # table_data.to_string(index=False)
@@ -240,12 +336,14 @@ def generate_rules():
     chart_html1 = fig1.to_html(full_html=False)
     chart_html2 = fig2.to_html(full_html=False)
     chart_html3 = fig3.to_html(full_html=False)
+    chart_html5=fig5.to_html(full_html=False)
     # Render the results template with the charts
     return render_template('results.html', chart_html=fig.to_html(full_html=False),
                            chart_html1=fig1.to_html(full_html=False), chart_html2=fig2.to_html(full_html=False),
-                           chart_html3=fig3.to_html(full_html=False),
-                           # modified_association_df=modified_association_df.to_html(index=False),
-                           strongly_associated_products = strongly_associated_products,
+                           chart_html3=fig3.to_html(full_html=False),chart_html5=fig5.to_html(full_html=False),
+                           chart_html6=fig6.to_html(full_html=False),
+                           chart_html7=fig7.to_html(full_html=False),
+                           chart_html8=fig8.to_html(full_html=False),
                            top_10_most_sold_products=top_10_most_sold_products.to_html(index=False),
                            table_data=table_data.to_html(index=False),
                            table_data_1=table_data_1.to_html(index=False))

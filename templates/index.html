@@ -21,13 +21,29 @@
         <h1>Welcome To FOOD JUNCTION</h1>
 
         <form action="/generate_rules" method="post" enctype="multipart/form-data">
-            <div >
-                <input class="button" type="file" name="data_file" accept=".csv">
+            <div>
+                <label for="data_file" class="button" id="file_label">Upload CSV file here</label>
+                <input type="file" name="data_file" id="data_file" accept=".csv" style="display: none;">
             </div>
             <div class="center">
                 <button class="button" type="submit">Generate Rules</button>
             </div>
         </form>
+        
+        <script>
+            const fileInput = document.getElementById('data_file');
+            const fileLabel = document.getElementById('file_label');
+        
+            fileInput.addEventListener('change', function() {
+                if (fileInput.files.length > 0) {
+                    fileLabel.textContent = fileInput.files[0].name;
+                } else {
+                    fileLabel.textContent = 'Upload CSV file here';
+                }
+            });
+        </script>
+        
+        
 
     </body>
 </html>

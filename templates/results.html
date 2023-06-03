@@ -20,88 +20,56 @@
 
 
     <div class="chart-container" style="width:100%;">
-        <div style="float:left; width:69%;">
+        <div style="float:left; width:69%; left: 0;">
             <div id="mPD" class="section"></div>
             <h2>Most Productive Day of this Month</h2>
             {{ chart_html2 | safe }}
         </div>
         <div style="float:right; width:30%;">
-            <h2>Most Productive Day Chart</h2>
-            {{ top_10_most_sold_products | safe }}
+            <h2>Productive Days</h2>
+            {{ chart_html6 | safe }}
         </div>
     </div>
 
 
     <div class="chart-container" style="width:100%;" >
-        <div style="float:left; width:70%;">
+        <div style="float:left; width:70%; left: 0;">
             <div id="mAP" class="section"></div>
             <h2>Most Associated Products</h2>
             {{ chart_html|safe }}
         </div>
-
         <div style="float:right; width:30%;">
-            <h2>Strongly Associated Products</h2>
-            <table style="border: 1px solid black;">
-                <thead>
-                    <tr>
-                        <th style="border: 1px solid black; font-size:22px;">Item A</th>
-                        <th style="border: 1px solid black;font-size:22px;">Item B</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for product in strongly_associated_products %}
-                    <tr style="font-size: 18px;">
-                        <td style="border: 1px solid black;">{{ product[0] }}</td>
-                        <td style="border: 1px solid black;">{{ product[1] }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <h2>Associated Products</h2>
+            {{ chart_html5 | safe }}
         </div>
     </div>
 
 
-    <div class="chart-container" style="width:100%;">
+    <div class="chart-container" style="width:100%; left: 0;">
         <div style="float:left; width:70%;">
             <div id="mFI" class="section"></div>
             <h2>25 Most Frequent Items purchased in this month</h2>
             {{ chart_html1 | safe }}
         </div>
-        <div style="float:right; width:30%; height: 30%; padding-top:0px; font-size:15px;">
-            <h2>18 Most Frequent Items Chart </h2>
-            {{table_data | safe}}
+        <div style="float:right; width:30%;">
+            <h2>Frequent Items</h2>
+            {{chart_html7 | safe}}
         </div>
     </div>
 
-    <div  class="chart-container" style="width:100%;padding-bottom:100px;">
+    <div  class="chart-container" style="width:100%; left: 0;">
         <div style="float:left; width:70%;">
             <div id="mRG" class="section"></div>
             <h2>Most revenue generated products in this month</h2>
             {{ chart_html3 | safe }}
         </div>
-        <div style="float:right; width:30%; padding-top:0px;font-size:15px">
-            <h2>Top 18 Revenue Generated Chart</h2>
-            {{ table_data_1 | safe }}
+        <div style="float:right; width:30%; padding:0%">
+            <h2>Revenue Generated Products</h2>
+            {{ chart_html8 | safe }}
         </div>
     </div>
 
     <script>
-        // Smooth scrolling functionality
-        const navLinks = document.querySelectorAll('.topnav a');
-
-        for (const link of navLinks) {
-            link.addEventListener('click', clickHandler);
-        }
-
-        function clickHandler(e) {
-            e.preventDefault();
-            const href = this.getAttribute('href');
-            const section = document.querySelector(href);
-
-            section.scrollIntoView({
-                behavior: 'smooth'
-            });
-        }
     </script>
 </body>
 </html>
