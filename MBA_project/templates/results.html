@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Association Rule Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h2>Most Associated Products</h2>
+    <div id="chart-container">{{ chart_html|safe }}</div>
+    <div class="chart-container">
+        <h2>25 Most Frequent Items purchased in this month</h2>
+        <div>
+            {{ chart_html1 | safe }}
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <h2>Most Productive Day</h2>
+        <div>
+            {{ chart_html2 | safe }}
+        </div>
+    </div>
+    <div class="container">
+        <h2>Association Rules</h2>
+        {{ rules_html|safe }}
+      </div>
+      
+    <style>
+        /* CSS styles for the chart containers */
+        .chart-container {
+            margin-top: 50px;
+        }
+    </style>
+
+    <script>
+        // Include any additional JavaScript code here if needed
+    </script>
+</body>
+</html>
